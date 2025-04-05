@@ -56,12 +56,12 @@ public class PlayerMovement : MonoBehaviour
 
         if (input.x > 0)
         {
-            transform.localScale = new Vector3(1, 1, 1);   // Mira a la derecha
+            transform.localScale = new Vector3(1, 1, 1);   
 
         }
         else if (input.x < 0)
         {
-            transform.localScale = new Vector3(-1, 1, 1);  // Mira a la izquierda
+            transform.localScale = new Vector3(-1, 1, 1);  
 
         }
 

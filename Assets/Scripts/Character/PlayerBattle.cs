@@ -6,8 +6,8 @@ public class PlayerBattle : MonoBehaviour
 {
 
     public int maxHP = 100;
-    private int currentHP;
-    public int attack = 1;
+    public int currentHP;
+    public int attack = 10;
     public int defense = 1;
     public int level = 1;
 
@@ -24,6 +24,8 @@ public class PlayerBattle : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        Debug.Log("take damage from player");
+
         int calculateHP = currentHP - damage;
         if (calculateHP<0)
         {
@@ -31,6 +33,8 @@ public class PlayerBattle : MonoBehaviour
         }else{
             currentHP=calculateHP;
         }
+        Debug.Log("life player = "+currentHP);
+
     }
 
     

@@ -16,7 +16,6 @@ public class PlayerBattle : MonoBehaviour
         currentHP = maxHP;
     }
 
-    // Update is called once per frame
     void Update()
     {
         

@@ -81,6 +81,7 @@ public class BattleManagerScript : MonoBehaviour
         if (playerBattle.currentHP <= 0)
         {
             state = BattleStateEnum.LOST;
+            battleUIScript.UpdateTurnText(BattleStateEnum.LOST);
             StartCoroutine(EndBattleAfterDelay("MainMenu"));
         }
         else
@@ -101,6 +102,7 @@ public class BattleManagerScript : MonoBehaviour
         if (enemyBattle.currentHP <= 0)
         {
             state = BattleStateEnum.WON;
+            battleUIScript.UpdateTurnText(BattleStateEnum.WON);
             StartCoroutine(EndBattleAfterDelay("TownScene"));
         }
         else
@@ -112,6 +114,18 @@ public class BattleManagerScript : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
         SceneManager.LoadScene(sceneName);
+    }
+    public void ScapeFromBattle(){
+        int randomNumber = Random.Range(0,3);
+        if (randomNumber==0)
+        {
+            ShowButtons(false);
+            state = BattleStateEnum.WAITING;
+            StartCoroutine(EndBattleAfterDelay("TownScene"));
+            
+        }else{
+            ChangeToEnemyTurn();
+        }
     }
 
 

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6167235009292053750}
   - component: {fileID: 5590533897452463120}
   - component: {fileID: 5819516750180533844}
+  - component: {fileID: 1685201661826437839}
   m_Layer: 0
   m_Name: Heroe
   m_TagString: Untagged
@@ -173,6 +174,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
+  randomEncounter: {fileID: 0}
 --- !u!95 &5819516750180533844
 Animator:
   serializedVersion: 5
@@ -194,3 +196,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1685201661826437839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7194458452243929960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 621479406cc184048becc6ef1eeba9c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeBetweenChecks: 1
+  encounterChance: 0.15
+  battleSceneName: BattleScene

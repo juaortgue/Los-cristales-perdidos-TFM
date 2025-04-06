@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     public float moveSpeed = 5f;
+    public RandomEncounter randomEncounter;
 
     private Rigidbody2D rb;
     private Vector2 movement;
@@ -15,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        randomEncounter=this.gameObject.GetComponent<RandomEncounter>();
     }
 
     private void Awake()
@@ -47,11 +49,13 @@ public class PlayerMovement : MonoBehaviour
         if (input != Vector2.zero)
         {
             animator.SetBool("isRunning", true);
+            randomEncounter.SetWalking(true);
         }
 
         else
         {
             animator.SetBool("isRunning", false);
+            randomEncounter.SetWalking(false);
         }
 
         if (input.x > 0)

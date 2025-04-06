@@ -1029,7 +1029,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHP: 20
   currentHP: 0
-  attack: 10
+  attack: 5
   defense: 5
 --- !u!1 &809616894
 GameObject:
@@ -2377,6 +2377,7 @@ MonoBehaviour:
   scapeGameObject: {fileID: 859118797}
   player: {fileID: 1583082661}
   enemy: {fileID: 448508945}
+  turnText: {fileID: 2036735555}
 --- !u!1 &1744777215
 GameObject:
   m_ObjectHideFlags: 0

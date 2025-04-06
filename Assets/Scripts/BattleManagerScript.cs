@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public enum BattleState { PLAYERTURN, ENEMYTURN, WON, LOST, WAITING }
 
@@ -39,14 +40,14 @@ public class BattleManagerScript : MonoBehaviour
 
     void ChangeToPlayerTurn()
     {
-        turnText.text ="Player turn";
+        turnText.text = "Player turn";
         state = BattleState.PLAYERTURN;
         ShowButtons(true);
     }
 
     void ChangeToEnemyTurn()
     {
-        turnText.text ="Enemy turn";
+        turnText.text = "Enemy turn";
         state = BattleState.ENEMYTURN;
         ShowButtons(false);
     }
@@ -73,7 +74,16 @@ public class BattleManagerScript : MonoBehaviour
             damage = enemyBattle.attack - playerBattle.defense;
         }
         playerBattle.TakeDamage(damage);
-        ChangeToPlayerTurn();
+
+        if (playerBattle.currentHP <= 0)
+        {
+            state = BattleState.LOST;
+            StartCoroutine(EndBattleAfterDelay("MainMenu"));
+        }
+        else
+        {
+            ChangeToPlayerTurn();
+        }
     }
 
     public void PlayerAttackEnemy()
@@ -84,7 +94,21 @@ public class BattleManagerScript : MonoBehaviour
             damage = playerBattle.attack - enemyBattle.defense;
         }
         enemyBattle.TakeDamage(damage);
-        ChangeToEnemyTurn();
+        if (enemyBattle.currentHP <= 0)
+        {
+            state = BattleState.WON;
+            StartCoroutine(EndBattleAfterDelay("TownScene"));
+        }
+        else
+        {
+            ChangeToEnemyTurn();
+        }
+    }
+    IEnumerator EndBattleAfterDelay(string sceneName)
+    {
+        turnText.text = (sceneName == "TownScene") ? "¡Has ganado!" : "Has perdido...";
+        yield return new WaitForSeconds(2f);
+        SceneManager.LoadScene(sceneName);
     }
 
 

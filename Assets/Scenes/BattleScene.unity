@@ -859,7 +859,7 @@ GameObject:
   - component: {fileID: 612805974}
   - component: {fileID: 612805975}
   m_Layer: 0
-  m_Name: LifeManager
+  m_Name: BattleUIManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -896,6 +896,7 @@ MonoBehaviour:
   enemy: {fileID: 448508945}
   playerLifeText: {fileID: 300695789}
   enemyLifeText: {fileID: 969327928}
+  turnText: {fileID: 2036735555}
 --- !u!1 &678073487
 GameObject:
   m_ObjectHideFlags: 0
@@ -2377,7 +2378,8 @@ MonoBehaviour:
   scapeGameObject: {fileID: 859118797}
   player: {fileID: 1583082661}
   enemy: {fileID: 448508945}
-  turnText: {fileID: 2036735555}
+  state: 0
+  battleUIGameObject: {fileID: 612805973}
 --- !u!1 &1744777215
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,17 +5,18 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
 
-public enum BattleState { PLAYERTURN, ENEMYTURN, WON, LOST, WAITING }
 
 public class BattleManagerScript : MonoBehaviour
 {
 
     public GameObject attackGameObject, scapeGameObject, player, enemy;
-    public TextMeshProUGUI turnText;
+    public BattleStateEnum state;
+    public GameObject battleUIGameObject;
 
+    private BattleUI battleUIScript;
     private PlayerBattle playerBattle;
     private EnemyBattle enemyBattle;
-    private BattleState state;
+    
 
     private Button attackButton, scapeButton;
 
@@ -25,30 +26,32 @@ public class BattleManagerScript : MonoBehaviour
         scapeButton = scapeGameObject.GetComponent<Button>();
         playerBattle = player.GetComponent<PlayerBattle>();
         enemyBattle = enemy.GetComponent<EnemyBattle>();
-
-
+        battleUIScript = battleUIGameObject.GetComponent<BattleUI>();
+        battleUIScript.UpdateLifeTexts();
         ChangeToPlayerTurn();
     }
     void Update()
     {
-        if (state.Equals(BattleState.ENEMYTURN))
+        if (state.Equals(BattleStateEnum.ENEMYTURN))
         {
-            state = BattleState.WAITING;
+            
+            state = BattleStateEnum.WAITING;
             StartCoroutine(EnemyAttackPlayerAfterDelay(1.5f));
         }
     }
 
     void ChangeToPlayerTurn()
     {
-        turnText.text = "Player turn";
-        state = BattleState.PLAYERTURN;
+        
+        state = BattleStateEnum.PLAYERTURN;
+        battleUIScript.UpdateTurnText(BattleStateEnum.PLAYERTURN);
         ShowButtons(true);
     }
 
     void ChangeToEnemyTurn()
     {
-        turnText.text = "Enemy turn";
-        state = BattleState.ENEMYTURN;
+        battleUIScript.UpdateTurnText(BattleStateEnum.ENEMYTURN);
+        state = BattleStateEnum.ENEMYTURN;
         ShowButtons(false);
     }
 
@@ -74,10 +77,10 @@ public class BattleManagerScript : MonoBehaviour
             damage = enemyBattle.attack - playerBattle.defense;
         }
         playerBattle.TakeDamage(damage);
-
+        battleUIScript.UpdateLifeTexts();
         if (playerBattle.currentHP <= 0)
         {
-            state = BattleState.LOST;
+            state = BattleStateEnum.LOST;
             StartCoroutine(EndBattleAfterDelay("MainMenu"));
         }
         else
@@ -94,9 +97,10 @@ public class BattleManagerScript : MonoBehaviour
             damage = playerBattle.attack - enemyBattle.defense;
         }
         enemyBattle.TakeDamage(damage);
+        battleUIScript.UpdateLifeTexts();
         if (enemyBattle.currentHP <= 0)
         {
-            state = BattleState.WON;
+            state = BattleStateEnum.WON;
             StartCoroutine(EndBattleAfterDelay("TownScene"));
         }
         else
@@ -106,7 +110,6 @@ public class BattleManagerScript : MonoBehaviour
     }
     IEnumerator EndBattleAfterDelay(string sceneName)
     {
-        turnText.text = (sceneName == "TownScene") ? "¡Has ganado!" : "Has perdido...";
         yield return new WaitForSeconds(2f);
         SceneManager.LoadScene(sceneName);
     }

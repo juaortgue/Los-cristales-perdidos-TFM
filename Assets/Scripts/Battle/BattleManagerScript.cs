@@ -9,21 +9,20 @@ using UnityEngine.SceneManagement;
 public class BattleManagerScript : MonoBehaviour
 {
 
-    public GameObject attackGameObject, scapeGameObject, player, enemy;
+    public GameObject  player, enemy;
     public BattleStateEnum state;
     public GameObject battleUIGameObject;
 
     private BattleUI battleUIScript;
     private PlayerBattle playerBattle;
     private EnemyBattle enemyBattle;
-    
 
-    private Button attackButton, scapeButton;
+
+    
 
     void Start()
     {
-        attackButton = attackGameObject.GetComponent<Button>();
-        scapeButton = scapeGameObject.GetComponent<Button>();
+        
         playerBattle = player.GetComponent<PlayerBattle>();
         enemyBattle = enemy.GetComponent<EnemyBattle>();
         battleUIScript = battleUIGameObject.GetComponent<BattleUI>();
@@ -34,7 +33,7 @@ public class BattleManagerScript : MonoBehaviour
     {
         if (state.Equals(BattleStateEnum.ENEMYTURN))
         {
-            
+
             state = BattleStateEnum.WAITING;
             StartCoroutine(EnemyAttackPlayerAfterDelay(1.5f));
         }
@@ -42,29 +41,21 @@ public class BattleManagerScript : MonoBehaviour
 
     void ChangeToPlayerTurn()
     {
-        
+
         state = BattleStateEnum.PLAYERTURN;
         battleUIScript.UpdateTurnText(BattleStateEnum.PLAYERTURN);
-        ShowButtons(true);
+        battleUIScript.ShowButtons(true);
     }
 
     void ChangeToEnemyTurn()
     {
         battleUIScript.UpdateTurnText(BattleStateEnum.ENEMYTURN);
         state = BattleStateEnum.ENEMYTURN;
-        ShowButtons(false);
+        battleUIScript.ShowButtons(false);
     }
 
 
-    void ShowButtons(bool show)
-    {
-        attackButton.interactable = show;
-        scapeButton.interactable = show;
-
-    }
-
-
-
+    
 
     IEnumerator EnemyAttackPlayerAfterDelay(float delay)
     {
@@ -72,13 +63,13 @@ public class BattleManagerScript : MonoBehaviour
         yield return new WaitForSeconds(delay);
 
         int damage = 1;
-        if (enemyBattle.attack > playerBattle.defense)
+        if (enemyBattle.attack > PlayerStats.Instance.getDefense())
         {
-            damage = enemyBattle.attack - playerBattle.defense;
+            damage = enemyBattle.attack - PlayerStats.Instance.getDefense();
         }
         playerBattle.TakeDamage(damage);
         battleUIScript.UpdateLifeTexts();
-        if (playerBattle.currentHP <= 0)
+        if (PlayerStats.Instance.getCurrentHP() <= 0)
         {
             state = BattleStateEnum.LOST;
             battleUIScript.UpdateTurnText(BattleStateEnum.LOST);
@@ -93,9 +84,9 @@ public class BattleManagerScript : MonoBehaviour
     public void PlayerAttackEnemy()
     {
         int damage = 1;
-        if (playerBattle.attack > enemyBattle.defense)
+        if (PlayerStats.Instance.getAttack() > enemyBattle.defense)
         {
-            damage = playerBattle.attack - enemyBattle.defense;
+            damage = PlayerStats.Instance.getAttack() - enemyBattle.defense;
         }
         enemyBattle.TakeDamage(damage);
         battleUIScript.UpdateLifeTexts();
@@ -110,20 +101,25 @@ public class BattleManagerScript : MonoBehaviour
             ChangeToEnemyTurn();
         }
     }
+
     IEnumerator EndBattleAfterDelay(string sceneName)
     {
         yield return new WaitForSeconds(2f);
         SceneManager.LoadScene(sceneName);
     }
-    public void ScapeFromBattle(){
-        int randomNumber = Random.Range(0,3);
-        if (randomNumber==0)
+
+    public void ScapeFromBattle()
+    {
+        int randomNumber = Random.Range(0, 3);
+        if (randomNumber == 0)
         {
-            ShowButtons(false);
+            battleUIScript.ShowButtons(false);
             state = BattleStateEnum.WAITING;
             StartCoroutine(EndBattleAfterDelay("TownScene"));
-            
-        }else{
+
+        }
+        else
+        {
             ChangeToEnemyTurn();
         }
     }

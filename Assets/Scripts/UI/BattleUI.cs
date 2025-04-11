@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-
+using UnityEngine.UI;
 public class BattleUI : MonoBehaviour
 {
 
@@ -15,20 +15,28 @@ public class BattleUI : MonoBehaviour
     public TextMeshProUGUI turnText;
     private PlayerBattle playerBattle;
     private EnemyBattle enemyBattle;
-
+    private Button attackButton, scapeButton;
+    public GameObject attackGameObject, scapeGameObject;
 
     void Start()
     {
         playerBattle = player.GetComponent<PlayerBattle>();
         enemyBattle = enemy.GetComponent<EnemyBattle>();
+        attackButton = attackGameObject.GetComponent<Button>();
+        scapeButton = scapeGameObject.GetComponent<Button>();
         UpdateLifeTexts();
     }
 
-    
+    public void ShowButtons(bool show)
+    {
+        attackButton.interactable = show;
+        scapeButton.interactable = show;
+
+    }
 
     public void UpdateLifeTexts()
     {
-        playerLifeText.text = playerBattle.currentHP + "/" + playerBattle.maxHP;
+        playerLifeText.text = PlayerStats.Instance.getCurrentHP() + "/" + PlayerStats.Instance.getMaxHP();
         enemyLifeText.text = enemyBattle.currentHP + "/" + enemyBattle.maxHP;
     }
 

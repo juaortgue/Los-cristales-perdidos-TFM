@@ -5,36 +5,18 @@ using UnityEngine;
 public class PlayerBattle : MonoBehaviour
 {
 
-    public int maxHP = 100;
-    public int currentHP;
-    public int attack = 10;
-    public int defense = 1;
-    public int level = 1;
-
-    void Start()
-    {
-        currentHP = maxHP;
-    }
-
-    void Update()
-    {
-        
-    }
 
     public void TakeDamage(int damage)
     {
-        Debug.Log("take damage from player");
 
-        int calculateHP = currentHP - damage;
+        int calculateHP = PlayerStats.Instance.getCurrentHP() - damage;
         if (calculateHP<0)
         {
-            currentHP=0;
+            PlayerStats.Instance.setCurrentHP(0);
         }else{
-            currentHP=calculateHP;
+            PlayerStats.Instance.setCurrentHP(calculateHP);
         }
-        Debug.Log("life player = "+currentHP);
-
+        
     }
 
-    
 }

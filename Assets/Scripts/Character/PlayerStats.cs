@@ -4,41 +4,107 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
-    public int level = 1;
-    public int currentXP = 0;
-    public int xpToNextLevel = 100;
+    public static PlayerStats Instance;
 
-    public int maxHP = 100;
-    public int currentHP;
-    public int attack = 10;
-    public int defense = 5;
+    [SerializeField] private int level = 1;
+    [SerializeField] private int currentXP = 0;
+    [SerializeField] private int xpToNextLevel = 100;
 
-    void Start()
+    [SerializeField] private int maxHP = 100;
+    [SerializeField] private int currentHP;
+    [SerializeField] private int attack = 10;
+    [SerializeField] private int defense = 5;
+
+    void Awake()
     {
-        currentHP = maxHP;
-    }
-
-    public void GainXP(int amount)
-    {
-        currentXP += amount;
-        while (currentXP >= xpToNextLevel)
+        if (Instance == null)
         {
-            currentXP -= xpToNextLevel;
-            LevelUp();
+            Instance = this;
+            DontDestroyOnLoad(gameObject); 
+        }
+        else
+        {
+            Destroy(gameObject); 
         }
     }
 
-    void LevelUp()
+    void Start()
     {
-        level++;
-        xpToNextLevel = Mathf.RoundToInt(xpToNextLevel * 1.2f); 
-
-        maxHP += 10;
-        attack += 2;
-        defense += 1;
-
-        currentHP = maxHP;
-
-        Debug.Log($"¡Subiste a nivel {level}!");
+        
+        if (currentHP == 0)
+        {
+            currentHP = maxHP;
+        }
     }
+
+
+    public int getCurrentHP()
+    {
+        return currentHP;
+    }
+
+    public int getMaxHP()
+    {
+        return maxHP;
+    }
+
+    public int getLevel()
+    {
+        return level;
+    }
+
+    public int getCurrentXP()
+    {
+        return currentXP;
+    }
+
+    public int getXPToNextLevel()
+    {
+        return xpToNextLevel;
+    }
+
+    public int getAttack()
+    {
+        return attack;
+    }
+
+    public int getDefense()
+    {
+        return defense;
+    }
+
+    public void setLevel(int newLevel)
+    {
+        level = newLevel;
+    }
+
+    public void setCurrentXP(int xp)
+    {
+        currentXP = xp;
+    }
+
+    public void setXPToNextLevel(int xp)
+    {
+        xpToNextLevel = xp;
+    }
+
+    public void setMaxHP(int hp)
+    {
+        maxHP = hp;
+    }
+
+    public void setAttack(int atk)
+    {
+        attack = atk;
+    }
+
+    public void setDefense(int def)
+    {
+        defense = def;
+    }
+    public void setCurrentHP(int hp)
+    {
+        currentHP = hp;
+    }
+
 }

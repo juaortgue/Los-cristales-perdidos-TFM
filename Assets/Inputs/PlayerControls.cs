@@ -149,6 +149,34 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 }
             ]
+        },
+        {
+            ""name"": ""StatsMenu"",
+            ""id"": ""9394ec9a-01e5-4c61-b2b2-9e664152bb9b"",
+            ""actions"": [
+                {
+                    ""name"": ""StatsMenu"",
+                    ""type"": ""Button"",
+                    ""id"": ""b43d3cba-2839-4f78-9977-ef9f49e4bf7b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""868d7f96-d9f6-4a80-95b9-7aae240f9572"",
+                    ""path"": ""<Keyboard>/m"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""StatsMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -156,6 +184,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
+        // StatsMenu
+        m_StatsMenu = asset.FindActionMap("StatsMenu", throwIfNotFound: true);
+        m_StatsMenu_StatsMenu = m_StatsMenu.FindAction("StatsMenu", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -259,8 +290,58 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         }
     }
     public PlayerActions @Player => new PlayerActions(this);
+
+    // StatsMenu
+    private readonly InputActionMap m_StatsMenu;
+    private List<IStatsMenuActions> m_StatsMenuActionsCallbackInterfaces = new List<IStatsMenuActions>();
+    private readonly InputAction m_StatsMenu_StatsMenu;
+    public struct StatsMenuActions
+    {
+        private @PlayerControls m_Wrapper;
+        public StatsMenuActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @StatsMenu => m_Wrapper.m_StatsMenu_StatsMenu;
+        public InputActionMap Get() { return m_Wrapper.m_StatsMenu; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(StatsMenuActions set) { return set.Get(); }
+        public void AddCallbacks(IStatsMenuActions instance)
+        {
+            if (instance == null || m_Wrapper.m_StatsMenuActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_StatsMenuActionsCallbackInterfaces.Add(instance);
+            @StatsMenu.started += instance.OnStatsMenu;
+            @StatsMenu.performed += instance.OnStatsMenu;
+            @StatsMenu.canceled += instance.OnStatsMenu;
+        }
+
+        private void UnregisterCallbacks(IStatsMenuActions instance)
+        {
+            @StatsMenu.started -= instance.OnStatsMenu;
+            @StatsMenu.performed -= instance.OnStatsMenu;
+            @StatsMenu.canceled -= instance.OnStatsMenu;
+        }
+
+        public void RemoveCallbacks(IStatsMenuActions instance)
+        {
+            if (m_Wrapper.m_StatsMenuActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IStatsMenuActions instance)
+        {
+            foreach (var item in m_Wrapper.m_StatsMenuActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_StatsMenuActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public StatsMenuActions @StatsMenu => new StatsMenuActions(this);
     public interface IPlayerActions
     {
         void OnMove(InputAction.CallbackContext context);
+    }
+    public interface IStatsMenuActions
+    {
+        void OnStatsMenu(InputAction.CallbackContext context);
     }
 }

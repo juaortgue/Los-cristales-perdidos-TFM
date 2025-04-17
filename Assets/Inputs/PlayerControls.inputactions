@@ -127,6 +127,34 @@
                     "isPartOfComposite": true
                 }
             ]
+        },
+        {
+            "name": "StatsMenu",
+            "id": "9394ec9a-01e5-4c61-b2b2-9e664152bb9b",
+            "actions": [
+                {
+                    "name": "StatsMenu",
+                    "type": "Button",
+                    "id": "b43d3cba-2839-4f78-9977-ef9f49e4bf7b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "868d7f96-d9f6-4a80-95b9-7aae240f9572",
+                    "path": "<Keyboard>/m",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "StatsMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

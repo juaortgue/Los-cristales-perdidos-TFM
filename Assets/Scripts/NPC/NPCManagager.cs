@@ -9,12 +9,11 @@ public class NPCManagager : MonoBehaviour
     public GameObject textPanel;
     public string textToShow;
     public TextMeshProUGUI npcText;
-    private bool isPlayerInRange;
+   
 
     void Start()
     {
         textToShow="Hello, I am an NPC!";
-        isPlayerInRange=false;
         
     }
 
@@ -23,13 +22,11 @@ public class NPCManagager : MonoBehaviour
         textPanel.SetActive(true);
         npcText.text = textToShow;
     }
+
     void HiddeText()
     {
         textPanel.SetActive(false);
     }
-
-    
-
 
     void OnTriggerEnter2D(Collider2D collision)
     {
@@ -37,7 +34,6 @@ public class NPCManagager : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             ShowText();
-            isPlayerInRange = true;
         }
     }
 
@@ -47,7 +43,6 @@ public class NPCManagager : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             HiddeText();
-            isPlayerInRange = false;
         }
     }
 }

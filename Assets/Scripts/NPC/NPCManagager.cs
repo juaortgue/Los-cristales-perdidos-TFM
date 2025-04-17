@@ -7,13 +7,31 @@ using UnityEngine.UI;
 public class NPCManagager : MonoBehaviour
 {
     public GameObject textPanel;
+    public GameObject statsPanel;
     public string textToShow;
     public TextMeshProUGUI npcText;
+    private bool isInArea;
    
 
     void Start()
     {
-        textToShow="Hello, I am an NPC!";
+        isInArea=false;
+        if (textToShow == null || textToShow == "")
+        {
+            textToShow = "Hello, I am a NPC!";
+        }
+       
+        
+    }
+
+    void Update()
+    {
+        if (isInArea && !statsPanel.activeSelf)
+        {
+            ShowText();
+        }else{
+            HiddeText();
+        }
         
     }
 
@@ -33,16 +51,17 @@ public class NPCManagager : MonoBehaviour
         
         if (collision.CompareTag("Player"))
         {
-            ShowText();
+            isInArea = true;
         }
     }
+
 
     void OnTriggerExit2D(Collider2D collision)
     {
         
         if (collision.CompareTag("Player"))
         {
-            HiddeText();
+            isInArea = false;
         }
     }
 }

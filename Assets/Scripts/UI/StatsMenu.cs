@@ -7,6 +7,7 @@ using TMPro;
 public class StatsMenu : MonoBehaviour
 {
     public GameObject statsPanel;
+    
     public TextMeshProUGUI levelField;
     public TextMeshProUGUI expField;
     public TextMeshProUGUI nextLevelField;
@@ -19,8 +20,9 @@ public class StatsMenu : MonoBehaviour
         if (statsPanel != null && context.performed)
         {
             bool isActive = !statsPanel.activeSelf;
+            
             statsPanel.SetActive(isActive);
-
+            
             Time.timeScale = isActive ? 0 : 1;
         }
     }
@@ -34,6 +36,7 @@ public class StatsMenu : MonoBehaviour
         defenseField.text = PlayerStats.Instance.getDefense().ToString();
         hpField.text = PlayerStats.Instance.getCurrentHP().ToString()+ "/"+PlayerStats.Instance.getMaxHP().ToString();
     }
+
     private void Update()
     {
         if (statsPanel.activeSelf)

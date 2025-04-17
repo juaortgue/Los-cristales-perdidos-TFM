@@ -1,1 +1,1 @@
-public enum BattleStateEnum { PLAYERTURN, ENEMYTURN, WON, LOST, WAITING }
+public enum BattleStateEnum { PLAYERTURN, ENEMYTURN, WON, LOST, WAITING, LEVELUP }

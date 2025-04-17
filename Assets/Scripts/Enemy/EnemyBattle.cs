@@ -8,6 +8,7 @@ public class EnemyBattle : MonoBehaviour
     public int currentHP;
     public int attack = 10;
     public int defense = 1;
+    public int exp = 10;
 
     void Start()
     {

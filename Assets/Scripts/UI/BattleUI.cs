@@ -60,6 +60,12 @@ public class BattleUI : MonoBehaviour
         else if (state.Equals(BattleStateEnum.LOST))
         {
             text = "You have lost!";
+        }else if (state.Equals(BattleStateEnum.WAITING))
+        {
+            text = "Waiting...";
+        }else if (state.Equals(BattleStateEnum.LEVELUP))
+        {
+            text = "Level Up!";
         }
 
         turnText.text = text;

@@ -17,9 +17,6 @@ public class BattleManagerScript : MonoBehaviour
     private PlayerBattle playerBattle;
     private EnemyBattle enemyBattle;
 
-
-    
-
     void Start()
     {
         
@@ -29,6 +26,7 @@ public class BattleManagerScript : MonoBehaviour
         battleUIScript.UpdateLifeTexts();
         ChangeToPlayerTurn();
     }
+
     void Update()
     {
         if (state.Equals(BattleStateEnum.ENEMYTURN))
@@ -53,9 +51,6 @@ public class BattleManagerScript : MonoBehaviour
         state = BattleStateEnum.ENEMYTURN;
         battleUIScript.ShowButtons(false);
     }
-
-
-    
 
     IEnumerator EnemyAttackPlayerAfterDelay(float delay)
     {
@@ -84,16 +79,33 @@ public class BattleManagerScript : MonoBehaviour
     public void PlayerAttackEnemy()
     {
         int damage = 1;
+
         if (PlayerStats.Instance.getAttack() > enemyBattle.defense)
         {
             damage = PlayerStats.Instance.getAttack() - enemyBattle.defense;
         }
+
         enemyBattle.TakeDamage(damage);
         battleUIScript.UpdateLifeTexts();
+
         if (enemyBattle.currentHP <= 0)
         {
+            battleUIScript.ShowButtons(false);
             state = BattleStateEnum.WON;
-            battleUIScript.UpdateTurnText(BattleStateEnum.WON);
+            int beforeLevel = PlayerStats.Instance.getLevel();
+            PlayerStats.Instance.GainExpFromEnemy(enemyBattle.exp);
+            int afterLevel = PlayerStats.Instance.getLevel();
+
+            if (afterLevel > beforeLevel)
+            {
+                battleUIScript.UpdateTurnText(BattleStateEnum.LEVELUP);
+            }
+            else
+            {
+                battleUIScript.UpdateTurnText(BattleStateEnum.WON);
+            }
+
+            
             StartCoroutine(EndBattleAfterDelay("TownScene"));
         }
         else

@@ -9,21 +9,21 @@ public class BattleUI : MonoBehaviour
     public GameObject player;
     public GameObject enemy;
 
-
+    public Slider enemyHealthSlider, playerHealthSlider;
     public TextMeshProUGUI playerLifeText;
     public TextMeshProUGUI enemyLifeText;
     public TextMeshProUGUI turnText;
-    private PlayerBattle playerBattle;
     private EnemyBattle enemyBattle;
     private Button attackButton, scapeButton;
     public GameObject attackGameObject, scapeGameObject;
 
     void Start()
     {
-        playerBattle = player.GetComponent<PlayerBattle>();
         enemyBattle = enemy.GetComponent<EnemyBattle>();
         attackButton = attackGameObject.GetComponent<Button>();
         scapeButton = scapeGameObject.GetComponent<Button>();
+        enemyHealthSlider.maxValue = enemyBattle.maxHP;
+        enemyHealthSlider.value = enemyBattle.currentHP;
         UpdateLifeTexts();
     }
 
@@ -38,6 +38,8 @@ public class BattleUI : MonoBehaviour
     {
         playerLifeText.text = PlayerStats.Instance.getCurrentHP() + "/" + PlayerStats.Instance.getMaxHP();
         enemyLifeText.text = enemyBattle.currentHP + "/" + enemyBattle.maxHP;
+        enemyHealthSlider.value = enemyBattle.currentHP;
+        playerHealthSlider.value = PlayerStats.Instance.getCurrentHP();
     }
 
     public void UpdateTurnText(BattleStateEnum state)

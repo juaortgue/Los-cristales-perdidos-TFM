@@ -6,62 +6,32 @@ using UnityEngine.UI;
 
 public class NPCManagager : MonoBehaviour
 {
-    public GameObject textPanel;
-    public GameObject statsPanel;
     public string textToShow;
-    public TextMeshProUGUI npcText;
-    private bool isInArea;
-   
 
     void Start()
     {
-        isInArea=false;
-        if (textToShow == null || textToShow == "")
+        
+        if (string.IsNullOrEmpty(textToShow))
         {
-            textToShow = "Hello, I am a NPC!";
+            textToShow = "Hello, I am an NPC!";
         }
-       
-        
     }
 
-    void Update()
-    {
-        if (isInArea && !statsPanel.activeSelf)
-        {
-            ShowText();
-        }else{
-            HiddeText();
-        }
-        
-    }
+   
 
-    void ShowText()
+     void OnTriggerEnter2D(Collider2D collision)
     {
-        textPanel.SetActive(true);
-        npcText.text = textToShow;
-    }
-
-    void HiddeText()
-    {
-        textPanel.SetActive(false);
-    }
-
-    void OnTriggerEnter2D(Collider2D collision)
-    {
-        
         if (collision.CompareTag("Player"))
         {
-            isInArea = true;
+            DialogueManager.Instance.ShowDialogue(textToShow);
         }
     }
-
 
     void OnTriggerExit2D(Collider2D collision)
     {
-        
         if (collision.CompareTag("Player"))
         {
-            isInArea = false;
+            DialogueManager.Instance.HideDialogue();
         }
     }
 }

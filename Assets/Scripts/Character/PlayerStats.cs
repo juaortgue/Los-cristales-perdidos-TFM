@@ -22,6 +22,7 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private int attack = 10;
     [SerializeField] private int defense = 5;
 
+    private Vector3 playerPosition;
 
 
     void Awake()
@@ -44,6 +45,7 @@ public class PlayerStats : MonoBehaviour
         {
             currentHP = maxHP;
         }
+        playerPosition = Vector3.zero;
     }
 
     public void GainExpFromEnemy(int exp)
@@ -51,8 +53,7 @@ public class PlayerStats : MonoBehaviour
         if (level < maxLvl)
         {
             currentXP += exp;
-            Debug.Log("Current XP: " + currentXP);
-            Debug.Log("XP to next level: " + xpToNextLevel);
+           
 
             if (currentXP >= xpToNextLevel)
             {
@@ -78,12 +79,7 @@ public class PlayerStats : MonoBehaviour
         defense += plusDefense;
         currentHP = maxHP;
 
-        Debug.Log("Level Up! New Level: " + level);
-        Debug.Log("New XP to next level: " + xpToNextLevel);
-        Debug.Log("New Max HP: " + maxHP);
-        Debug.Log("New Attack: " + attack);
-        Debug.Log("New Defense: " + defense);
-        Debug.Log("New Current HP: " + currentHP);
+       
     }
 
     public int getPlusHP()
@@ -174,6 +170,16 @@ public class PlayerStats : MonoBehaviour
     public void setCurrentHP(int hp)
     {
         currentHP = hp;
+    }
+    public Vector3 getPlayerPosition()
+    {
+        Debug.Log("Player position get: " + playerPosition);
+        return playerPosition;
+    }
+    public void setPlayerPosition(Vector3 position)
+    {
+        Debug.Log("Player position set to: " + position);
+        playerPosition = position;
     }
 
 }

@@ -8,7 +8,7 @@ public class RandomEncounter : MonoBehaviour
     public float timeBetweenChecks = 1f;
     public float encounterChance = 0.05f;
     public string battleSceneName = "BattleScene";
-
+    
     private float timer = 0f;
     private bool isWalking = false;
 
@@ -34,6 +34,7 @@ public class RandomEncounter : MonoBehaviour
 
     private void StartEncounter()
     {
+         PlayerStats.Instance.setPlayerPosition(this.transform.position);
         SceneManager.LoadScene(battleSceneName);
     }
 

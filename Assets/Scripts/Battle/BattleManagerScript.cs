@@ -19,7 +19,7 @@ public class BattleManagerScript : MonoBehaviour
 
     void Start()
     {
-        
+       
         playerBattle = player.GetComponent<PlayerBattle>();
         enemyBattle = enemy.GetComponent<EnemyBattle>();
         battleUIScript = battleUIGameObject.GetComponent<BattleUI>();

@@ -17,6 +17,13 @@ public class PlayerMovement : MonoBehaviour
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         randomEncounter=this.gameObject.GetComponent<RandomEncounter>();
+
+        if(PlayerStats.Instance.getPlayerPosition() != Vector3.zero)
+        {
+            Debug.Log("Player position is not zero, RESTART player position to saved position.");
+            gameObject.transform.position = PlayerStats.Instance.getPlayerPosition();
+        }
+        
     }
 
     private void Awake()

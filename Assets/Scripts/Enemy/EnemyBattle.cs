@@ -17,7 +17,7 @@ public class EnemyBattle : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        Debug.Log("take damage from enemy");
+       
         int calculateHP = currentHP - damage;
         if (calculateHP<0)
         {
@@ -25,6 +25,5 @@ public class EnemyBattle : MonoBehaviour
         }else{
             currentHP=calculateHP;
         }
-        Debug.Log("life enemy = "+currentHP);
     }
 }

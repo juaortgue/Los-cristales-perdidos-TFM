@@ -43179,7 +43179,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1685201661826437839, guid: 51f3a03e2f16ae64dbe77946c610340c, type: 3}
       propertyPath: encounterChance
-      value: 0
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2942081918631863531, guid: 51f3a03e2f16ae64dbe77946c610340c, type: 3}
+      propertyPath: m_AngularDrag
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 2942081918631863531, guid: 51f3a03e2f16ae64dbe77946c610340c, type: 3}
       propertyPath: m_Constraints

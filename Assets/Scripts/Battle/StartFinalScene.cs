@@ -42,8 +42,10 @@ public class StartFinalScene : MonoBehaviour
         }
 
         DialogueManager.Instance.HideDialogue();
+        BattleContext.isFinalBattle = true;
+        SceneManager.LoadScene("BattleScene");
     }
-    
+
     void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))

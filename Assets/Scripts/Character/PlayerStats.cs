@@ -39,7 +39,6 @@ public class PlayerStats : MonoBehaviour
 
     void Start()
     {
-        // Initialize player stats
         maxHP = lifeLevels[0];
         attack = attackLevels[0];
         defense = defenseLevels[0];
@@ -87,7 +86,6 @@ public class PlayerStats : MonoBehaviour
             level = maxLvl;
         }
 
-        //currentHP = maxHP; 
     }
 
     public int getMaxLvl()

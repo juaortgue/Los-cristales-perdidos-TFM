@@ -3,8 +3,8 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public float moveSpeed = 5f;
-    public RandomEncounter randomEncounter;
 
+    private RandomEncounter randomEncounter;
     private Rigidbody2D rb;
     private Vector2 movement;
     private PlayerControls controls;

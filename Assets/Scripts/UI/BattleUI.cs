@@ -1,14 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 public class BattleUI : MonoBehaviour
 {
 
-    public GameObject player;
-    public GameObject enemy;
-
+    
     public Slider enemyHealthSlider, playerHealthSlider;
     public TextMeshProUGUI playerLifeText;
     public TextMeshProUGUI enemyLifeText;
@@ -17,13 +13,15 @@ public class BattleUI : MonoBehaviour
     private Button attackButton, scapeButton;
     public GameObject attackGameObject, scapeGameObject;
 
-    void Start()
+    public void Init(EnemyBattle enemyBattle)
     {
-        enemyBattle = enemy.GetComponent<EnemyBattle>();
+        this.enemyBattle = enemyBattle;
         attackButton = attackGameObject.GetComponent<Button>();
         scapeButton = scapeGameObject.GetComponent<Button>();
         enemyHealthSlider.maxValue = enemyBattle.maxHP;
         enemyHealthSlider.value = enemyBattle.currentHP;
+        playerHealthSlider.maxValue = PlayerStats.Instance.getMaxHP();
+        playerHealthSlider.value = PlayerStats.Instance.getCurrentHP();
         UpdateLifeTexts();
     }
 

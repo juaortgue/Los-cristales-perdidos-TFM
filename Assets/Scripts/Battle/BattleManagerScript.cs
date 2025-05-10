@@ -1,15 +1,13 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
+
 using UnityEngine.SceneManagement;
 
 
 public class BattleManagerScript : MonoBehaviour
 {
 
-    public GameObject  player, enemy;
+    public GameObject player;
     public BattleStateEnum state;
     public GameObject battleUIGameObject;
 
@@ -19,10 +17,21 @@ public class BattleManagerScript : MonoBehaviour
 
     void Start()
     {
-       
+        StartCoroutine(WaitForEnemyToBeReady());
+    }
+
+    IEnumerator WaitForEnemyToBeReady()
+    {
+        // Esperar hasta que el enemigo se haya instanciado
+        while (EnemySpawner.currentEnemy == null)
+        {
+            yield return null;
+        }
+
         playerBattle = player.GetComponent<PlayerBattle>();
-        enemyBattle = enemy.GetComponent<EnemyBattle>();
+        enemyBattle = EnemySpawner.currentEnemy.GetComponent<EnemyBattle>();
         battleUIScript = battleUIGameObject.GetComponent<BattleUI>();
+        battleUIScript.Init(enemyBattle);
         battleUIScript.UpdateLifeTexts();
         ChangeToPlayerTurn();
     }
@@ -94,6 +103,7 @@ public class BattleManagerScript : MonoBehaviour
             state = BattleStateEnum.WON;
             int beforeLevel = PlayerStats.Instance.getLevel();
             PlayerStats.Instance.GainExpFromEnemy(enemyBattle.exp);
+            PlayerStats.Instance.setCurrentHP(PlayerStats.Instance.getMaxHP());
             int afterLevel = PlayerStats.Instance.getLevel();
 
             if (afterLevel > beforeLevel)
@@ -105,7 +115,7 @@ public class BattleManagerScript : MonoBehaviour
                 battleUIScript.UpdateTurnText(BattleStateEnum.WON);
             }
 
-            
+
             StartCoroutine(EndBattleAfterDelay("TownScene"));
         }
         else

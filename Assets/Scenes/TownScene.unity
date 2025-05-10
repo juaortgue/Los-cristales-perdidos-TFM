@@ -35477,10 +35477,10 @@ MonoBehaviour:
   level: 1
   currentXP: 0
   xpToNextLevel: 10
-  plusDefense: 2
-  plusAttack: 2
-  plusHP: 10
   maxLvl: 5
+  lifeLevels: 28000000320000003c0000004600000050000000
+  attackLevels: 080000000a0000000c0000000e00000010000000
+  defenseLevels: 0400000006000000080000000a0000000c000000
   maxHP: 100
   currentHP: 0
   attack: 10
@@ -43179,7 +43179,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1685201661826437839, guid: 51f3a03e2f16ae64dbe77946c610340c, type: 3}
       propertyPath: encounterChance
-      value: 0.1
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2942081918631863531, guid: 51f3a03e2f16ae64dbe77946c610340c, type: 3}
       propertyPath: m_AngularDrag

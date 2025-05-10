@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
@@ -11,16 +9,17 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private int level = 1;
     [SerializeField] private int currentXP = 0;
     [SerializeField] private int xpToNextLevel = 10;
-    [SerializeField] private int plusDefense = 2;
-    [SerializeField] private int plusAttack = 2;
-    [SerializeField] private int plusHP = 10;
     [SerializeField] private int maxLvl = 5;
-
+    [SerializeField] private int []lifeLevels = new int[5] { 40, 50, 60, 70, 80 };
+    [SerializeField] private int []attackLevels = new int[5] { 8, 10, 12, 14, 16 };
+    [SerializeField] private int []defenseLevels = new int[5] { 4, 6, 8, 10, 12 };
+    
+    
     //character stats
-    [SerializeField] private int maxHP = 100;
-    [SerializeField] private int currentHP;
-    [SerializeField] private int attack = 10;
-    [SerializeField] private int defense = 5;
+    private int maxHP = 40;
+    private int currentHP;
+    private int attack = 8;
+    private int defense = 4;
 
     private Vector3 playerPosition;
 
@@ -40,7 +39,10 @@ public class PlayerStats : MonoBehaviour
 
     void Start()
     {
-
+        // Initialize player stats
+        maxHP = lifeLevels[0];
+        attack = attackLevels[0];
+        defense = defenseLevels[0];
         if (currentHP == 0)
         {
             currentHP = maxHP;
@@ -53,7 +55,7 @@ public class PlayerStats : MonoBehaviour
         if (level < maxLvl)
         {
             currentXP += exp;
-           
+
 
             if (currentXP >= xpToNextLevel)
             {
@@ -66,7 +68,6 @@ public class PlayerStats : MonoBehaviour
             }
         }
 
-
     }
 
     private void LevelUp()
@@ -74,34 +75,26 @@ public class PlayerStats : MonoBehaviour
         level++;
         currentXP = 0;
         xpToNextLevel = xpToNextLevel * 2;
-        maxHP += plusHP;
-        attack += plusAttack;
-        defense += plusDefense;
-        currentHP = maxHP;
 
-       
-    }
+        if(level>1 && level <= maxLvl)
+        {
+            maxHP = lifeLevels[level - 1];
+            attack = attackLevels[level - 1];
+            defense = defenseLevels[level - 1];
+        }
+        else if(level > maxLvl)
+        {
+            level = maxLvl;
+        }
 
-    public int getPlusHP()
-    {
-        return plusHP;
-    }
-
-    public int getPlusAttack()
-    {
-        return plusAttack;
-    }
-
-    public int getPlusDefense()
-    {
-        return plusDefense;
+        //currentHP = maxHP; 
     }
 
     public int getMaxLvl()
     {
         return maxLvl;
     }
-    
+
     public int getCurrentHP()
     {
         return currentHP;
@@ -173,12 +166,10 @@ public class PlayerStats : MonoBehaviour
     }
     public Vector3 getPlayerPosition()
     {
-        Debug.Log("Player position get: " + playerPosition);
         return playerPosition;
     }
     public void setPlayerPosition(Vector3 position)
     {
-        Debug.Log("Player position set to: " + position);
         playerPosition = position;
     }
 

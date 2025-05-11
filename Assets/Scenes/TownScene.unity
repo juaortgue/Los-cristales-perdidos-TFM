@@ -443,6 +443,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 20771304}
   m_CullTransparentMesh: 1
+--- !u!1 &44425704
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 44425705}
+  m_Layer: 0
+  m_Name: SpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &44425705
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 44425704}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.08, y: -11.14, z: -0.03648036}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &47441953
 GameObject:
   m_ObjectHideFlags: 0
@@ -33041,7 +33072,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.0795403, y: -11.996154, z: -10}
+  m_LocalPosition: {x: -3.54, y: -11.36, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -34533,6 +34564,7 @@ MonoBehaviour:
   - GOOD LUCK IN YOUR ADVENTURE!!
   timeBetweenDialogues: 5
   player: {fileID: 4960570773360368910}
+  isTutorial: 1
 --- !u!61 &735730244
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -36072,9 +36104,9 @@ MonoBehaviour:
   currentXP: 0
   xpToNextLevel: 10
   maxLvl: 5
-  lifeLevels: 28000000320000003c0000004600000050000000
-  attackLevels: 080000000a0000000c0000000e00000010000000
-  defenseLevels: 0400000006000000080000000a0000000c000000
+  lifeLevels: c8000000320000003c0000004600000050000000
+  attackLevels: c80000000a0000000c0000000e00000010000000
+  defenseLevels: c800000006000000080000000a0000000c000000
 --- !u!1001 &985298385
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -41438,7 +41470,7 @@ Transform:
   m_GameObject: {fileID: 1742439357}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.08, y: -15.64, z: -10}
+  m_LocalPosition: {x: -3.54, y: -11.36, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -44165,7 +44197,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1685201661826437839, guid: 51f3a03e2f16ae64dbe77946c610340c, type: 3}
       propertyPath: encounterChance
-      value: 0
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 2942081918631863531, guid: 51f3a03e2f16ae64dbe77946c610340c, type: 3}
       propertyPath: m_AngularDrag
@@ -44175,13 +44207,21 @@ PrefabInstance:
       propertyPath: m_Constraints
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 2942081918631863531, guid: 51f3a03e2f16ae64dbe77946c610340c, type: 3}
+      propertyPath: m_GravityScale
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5590533897452463120, guid: 51f3a03e2f16ae64dbe77946c610340c, type: 3}
+      propertyPath: spawnPoint
+      value: 
+      objectReference: {fileID: 44425704}
     - target: {fileID: 5944931671229018291, guid: 51f3a03e2f16ae64dbe77946c610340c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.08
+      value: -3.54
       objectReference: {fileID: 0}
     - target: {fileID: 5944931671229018291, guid: 51f3a03e2f16ae64dbe77946c610340c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -15.64
+      value: -11.36
       objectReference: {fileID: 0}
     - target: {fileID: 5944931671229018291, guid: 51f3a03e2f16ae64dbe77946c610340c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -44604,3 +44644,4 @@ SceneRoots:
   - {fileID: 1651165339}
   - {fileID: 2016751714}
   - {fileID: 1986158022}
+  - {fileID: 44425705}

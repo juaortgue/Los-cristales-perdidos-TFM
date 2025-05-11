@@ -3,22 +3,25 @@ using UnityEngine;
 public class TutorialManager : MonoBehaviour
 {
     public string[] dialogues;
-
     public float timeBetweenDialogues = 1f;
     public GameObject player;
+    
     private bool triggered = false;
-
+    private DialogueManager dm;
 
     void Start()
     {
-
-
-        player.GetComponent<PlayerMovement>().enabled = false;
-        player.GetComponent<Animator>().SetBool("isRunning", false);
-
-        if (!triggered)
+        dm = FindObjectOfType<DialogueManager>();
+        if (GameContext.isTutorial && dm!=null)
         {
-            StartCoroutine(StartDialogueSequence());
+            
+            player.GetComponent<PlayerMovement>().enabled = false;
+            player.GetComponent<Animator>().SetBool("isRunning", false);
+
+            if (!triggered)
+            {
+                StartCoroutine(StartDialogueSequence());
+            }
         }
 
     }
@@ -26,16 +29,15 @@ public class TutorialManager : MonoBehaviour
     IEnumerator StartDialogueSequence()
     {
         triggered = true;
-
+        GameContext.isTutorial = false;
 
         foreach (string line in dialogues)
         {
-            Debug.Log("bucle");
-            DialogueManager.Instance.ShowDialogue(line);
+            dm.ShowDialogue(line);
             yield return new WaitForSeconds(timeBetweenDialogues);
         }
 
-        DialogueManager.Instance.HideDialogue();
+        dm.HideDialogue();
         player.GetComponent<PlayerMovement>().enabled = true;
     }
 

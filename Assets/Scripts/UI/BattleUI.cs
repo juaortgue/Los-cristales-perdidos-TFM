@@ -28,7 +28,15 @@ public class BattleUI : MonoBehaviour
     public void ShowButtons(bool show)
     {
         attackButton.interactable = show;
-        scapeButton.interactable = show;
+
+        if (GameContext.isFinalBattle)
+        {
+            scapeButton.interactable = false;
+        }
+        else
+        {
+            scapeButton.interactable = show;
+        }
 
     }
 

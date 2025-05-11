@@ -1,9 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-using TMPro;
+
 public class StartFinalScene : MonoBehaviour
 {
     public string[] dialogues = new string[]
@@ -21,7 +19,13 @@ public class StartFinalScene : MonoBehaviour
     public float timeBetweenDialogues = 10f;
 
     private bool triggered = false;
+    private DialogueManager dm;
 
+    void Start()
+    {
+        dm = FindObjectOfType<DialogueManager>();
+        
+    }
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player") && !triggered)
@@ -37,20 +41,20 @@ public class StartFinalScene : MonoBehaviour
     {
         foreach (string line in dialogues)
         {
-            DialogueManager.Instance.ShowDialogue(line);
+            dm.ShowDialogue(line);
             yield return new WaitForSeconds(timeBetweenDialogues);
         }
 
-        DialogueManager.Instance.HideDialogue();
-        BattleContext.isFinalBattle = true;
+        dm.HideDialogue();
+        GameContext.isFinalBattle = true;
         SceneManager.LoadScene("BattleScene");
     }
 
     void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") && dm != null)
         {
-            DialogueManager.Instance.HideDialogue();
+            dm.HideDialogue();
         }
     }
 }

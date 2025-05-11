@@ -22,7 +22,6 @@ public class BattleManagerScript : MonoBehaviour
 
     IEnumerator WaitForEnemyToBeReady()
     {
-        // Esperar hasta que el enemigo se haya instanciado
         while (EnemySpawner.currentEnemy == null)
         {
             yield return null;
@@ -104,6 +103,7 @@ public class BattleManagerScript : MonoBehaviour
             int beforeLevel = PlayerStats.Instance.getLevel();
             PlayerStats.Instance.GainExpFromEnemy(enemyBattle.exp);
             PlayerStats.Instance.setCurrentHP(PlayerStats.Instance.getMaxHP());
+            PlayerStats.Instance.setCurrentHP(PlayerStats.Instance.getMaxHP());
             int afterLevel = PlayerStats.Instance.getLevel();
 
             if (afterLevel > beforeLevel)
@@ -115,8 +115,15 @@ public class BattleManagerScript : MonoBehaviour
                 battleUIScript.UpdateTurnText(BattleStateEnum.WON);
             }
 
+            if (GameContext.isFinalBattle)
+            {
+                StartCoroutine(EndBattleAfterDelay("MainMenuScene"));
+            }
+            else
+            {
+                StartCoroutine(EndBattleAfterDelay("TownScene"));
+            }
 
-            StartCoroutine(EndBattleAfterDelay("TownScene"));
         }
         else
         {
@@ -126,6 +133,7 @@ public class BattleManagerScript : MonoBehaviour
 
     IEnumerator EndBattleAfterDelay(string sceneName)
     {
+        GameContext.previousScene = SceneEnum.BattleScene;
         yield return new WaitForSeconds(2f);
         SceneManager.LoadScene(sceneName);
     }

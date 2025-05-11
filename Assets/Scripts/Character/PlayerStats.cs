@@ -10,11 +10,11 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private int currentXP = 0;
     [SerializeField] private int xpToNextLevel = 10;
     [SerializeField] private int maxLvl = 5;
-    [SerializeField] private int []lifeLevels = new int[5] { 40, 50, 60, 70, 80 };
-    [SerializeField] private int []attackLevels = new int[5] { 8, 10, 12, 14, 16 };
-    [SerializeField] private int []defenseLevels = new int[5] { 4, 6, 8, 10, 12 };
-    
-    
+    [SerializeField] private int[] lifeLevels = new int[5] { 40, 50, 60, 70, 80 };
+    [SerializeField] private int[] attackLevels = new int[5] { 8, 10, 12, 14, 16 };
+    [SerializeField] private int[] defenseLevels = new int[5] { 4, 6, 8, 10, 12 };
+
+
     //character stats
     private int maxHP = 40;
     private int currentHP;
@@ -74,14 +74,18 @@ public class PlayerStats : MonoBehaviour
         level++;
         currentXP = 0;
         xpToNextLevel = xpToNextLevel * 2;
+        if (level >= maxLvl)
+        {
+            xpToNextLevel = 0;
+        }
 
-        if(level>1 && level <= maxLvl)
+        if (level > 1 && level <= maxLvl)
         {
             maxHP = lifeLevels[level - 1];
             attack = attackLevels[level - 1];
             defense = defenseLevels[level - 1];
         }
-        else if(level > maxLvl)
+        else if (level > maxLvl)
         {
             level = maxLvl;
         }

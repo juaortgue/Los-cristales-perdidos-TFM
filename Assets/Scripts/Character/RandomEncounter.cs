@@ -35,7 +35,8 @@ public class RandomEncounter : MonoBehaviour
     private void StartEncounter()
     {
         PlayerStats.Instance.setPlayerPosition(this.transform.position);
-        BattleContext.isFinalBattle = false;
+        GameContext.isFinalBattle = false;
+        GameContext.previousScene = SceneEnum.TownScene;
         SceneManager.LoadScene(battleSceneName);
     }
 

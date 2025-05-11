@@ -4,9 +4,9 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
    
-
     public void LoadFirstScene(){
-        SceneManager.LoadScene(2);
+        GameContext.previousScene = SceneEnum.MainMenuScene;
+        SceneManager.LoadScene(SceneEnum.TownScene.ToString());
     }
     
     public void ExitGame(){
@@ -14,10 +14,12 @@ public class MainMenu : MonoBehaviour
     }
 
     public void LoadControlsScene(){
-        SceneManager.LoadScene(1);
+        GameContext.previousScene = SceneEnum.MainMenuScene;
+        SceneManager.LoadScene(SceneEnum.ControlsScene.ToString());
     }
     public void LoadMainMenuScene(){
-        SceneManager.LoadScene(0);
+        GameContext.previousScene = SceneEnum.ControlsScene;
+        SceneManager.LoadScene(SceneEnum.MainMenuScene.ToString());
     }
     
 }

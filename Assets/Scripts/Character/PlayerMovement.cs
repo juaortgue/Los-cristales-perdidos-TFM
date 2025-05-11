@@ -9,19 +9,27 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 movement;
     private PlayerControls controls;
     public Animator animator;
+    public GameObject spawnPoint;
 
     private void Start()
     {
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
-        randomEncounter=this.gameObject.GetComponent<RandomEncounter>();
+        randomEncounter = this.gameObject.GetComponent<RandomEncounter>();
 
-        if(PlayerStats.Instance.getPlayerPosition() != Vector3.zero)
+        if (GameContext.previousScene.Equals(SceneEnum.BattleScene) &&
+        PlayerStats.Instance.getPlayerPosition() != Vector3.zero)
         {
-            Debug.Log("Player position is not zero, RESTART player position to saved position.");
-            gameObject.transform.position = PlayerStats.Instance.getPlayerPosition();
+            Debug.Log("Returning from battle — setting saved position.");
+            transform.position = PlayerStats.Instance.getPlayerPosition();
         }
-        
+        else
+        {
+            Debug.Log("Using spawn point.");
+            transform.position = spawnPoint.transform.position;
+        }
+       
+
     }
 
     private void Awake()
@@ -65,14 +73,16 @@ public class PlayerMovement : MonoBehaviour
 
         if (input.x > 0)
         {
-            transform.localScale = new Vector3(1, 1, 1);   
+            transform.localScale = new Vector3(1, 1, 1);
 
         }
         else if (input.x < 0)
         {
-            transform.localScale = new Vector3(-1, 1, 1);  
+            transform.localScale = new Vector3(-1, 1, 1);
 
         }
 
     }
+
+    
 }

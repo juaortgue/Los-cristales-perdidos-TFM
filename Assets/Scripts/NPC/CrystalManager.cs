@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 public class CrystalManager : MonoBehaviour
 {
     public string textToShow;
-
+    private DialogueManager dm;
     void Start()
     {
 
@@ -13,21 +11,23 @@ public class CrystalManager : MonoBehaviour
         {
             textToShow = "Your level is too low. Reach level 5 to pass.!";
         }
+        dm = FindObjectOfType<DialogueManager>();
     }
 
 
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") && dm != null)
         {
             if (PlayerStats.Instance.getLevel() < 5)
             {
-                DialogueManager.Instance.ShowDialogue(textToShow);
+                dm.ShowDialogue(textToShow);
             }
             else
             {
-                DialogueManager.Instance.HideDialogue();
+                GameContext.previousScene = SceneEnum.TownScene;
+                dm.HideDialogue();
                 SceneManager.LoadScene("FinalBattleScene");
             }
         }
@@ -35,9 +35,9 @@ public class CrystalManager : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") && dm != null)
         {
-            DialogueManager.Instance.HideDialogue();
+            dm.HideDialogue();
         }
     }
 }

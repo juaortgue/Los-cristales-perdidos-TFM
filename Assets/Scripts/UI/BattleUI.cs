@@ -10,13 +10,14 @@ public class BattleUI : MonoBehaviour
     public TextMeshProUGUI enemyLifeText;
     public TextMeshProUGUI turnText;
     private EnemyBattle enemyBattle;
-    private Button attackButton, scapeButton;
-    public GameObject attackGameObject, scapeGameObject;
+    private Button attackButton,defendButton, scapeButton;
+    public GameObject attackGameObject,defendGameObject ,scapeGameObject;
 
     public void Init(EnemyBattle enemyBattle)
     {
         this.enemyBattle = enemyBattle;
         attackButton = attackGameObject.GetComponent<Button>();
+        defendButton = defendGameObject.GetComponent<Button>();
         scapeButton = scapeGameObject.GetComponent<Button>();
         enemyHealthSlider.maxValue = enemyBattle.maxHP;
         enemyHealthSlider.value = enemyBattle.currentHP;
@@ -28,7 +29,7 @@ public class BattleUI : MonoBehaviour
     public void ShowButtons(bool show)
     {
         attackButton.interactable = show;
-
+        defendButton.interactable = show;
         if (GameContext.isFinalBattle)
         {
             scapeButton.interactable = false;

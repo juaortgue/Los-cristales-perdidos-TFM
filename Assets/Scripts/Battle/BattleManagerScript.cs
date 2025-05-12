@@ -28,7 +28,7 @@ public class BattleManagerScript : MonoBehaviour
             audioSourceFinalBattle.Stop();
             audioSourceNormalBattle.Play();
         }
-        
+
         StartCoroutine(WaitForEnemyToBeReady());
     }
 
@@ -74,7 +74,7 @@ public class BattleManagerScript : MonoBehaviour
 
     IEnumerator EnemyAttackPlayerAfterDelay(float delay)
     {
-        
+
 
         yield return new WaitForSeconds(delay);
 
@@ -83,15 +83,22 @@ public class BattleManagerScript : MonoBehaviour
         {
             damage = enemyBattle.attack - PlayerStats.Instance.getDefense();
         }
+
+        if(playerBattle.isDefending)
+        {
+            damage = damage /2;
+            playerBattle.Undefending();
+        }
+        
         enemyBattle.PlayAttackAnimation();
         playerBattle.TakeDamage(damage);
         battleUIScript.UpdateLifeTexts();
         playerBattle.DoReceiveDamageAnimation();
-        
+
 
         yield return new WaitForSeconds(1f);
-        
-        
+
+
         if (PlayerStats.Instance.getCurrentHP() <= 0)
         {
             state = BattleStateEnum.LOST;
@@ -113,7 +120,7 @@ public class BattleManagerScript : MonoBehaviour
             damage = PlayerStats.Instance.getAttack() - enemyBattle.defense;
         }
         playerBattle.DoAttackAnimation();
-        
+
         enemyBattle.DoReceiveDamageAnimation();
         enemyBattle.TakeDamage(damage);
         battleUIScript.UpdateLifeTexts();
@@ -151,6 +158,19 @@ public class BattleManagerScript : MonoBehaviour
         {
             ChangeToEnemyTurn();
         }
+    }
+
+    private void Defend()
+    {
+        state = BattleStateEnum.DEFENDING;
+        battleUIScript.UpdateTurnText(state);
+        playerBattle.Defend();
+        ChangeToEnemyTurn();
+    }
+
+    public void OnPlayerDefend()
+    {
+        Defend();
     }
 
     IEnumerator EndBattleAfterDelay(string sceneName)

@@ -9,6 +9,7 @@ public class EnemyBattle : MonoBehaviour
     public int exp = 10;
     public float moveDistance = 0.5f;
     public float speed = 5f;
+    public bool isBoss = false;
 
     private Transform target;
     private SpriteRenderer spriteRenderer;
@@ -29,10 +30,16 @@ public class EnemyBattle : MonoBehaviour
     private IEnumerator AttackAnimationRoutine()
     {
         Vector3 originalPosition = transform.position;
-
+        Vector3 originalScale = transform.localScale;
+        Vector3 enlargedScale = new Vector3(originalScale.x * 1.5f, originalScale.y * 1.5f, originalScale.z);
         Vector3 direction = (target.position - transform.position).normalized;
 
         Vector3 attackPosition = originalPosition + direction * moveDistance;
+        
+        if (isBoss)
+        {
+            transform.localScale = enlargedScale;
+        }
 
         float time = 0f;
 
@@ -51,7 +58,10 @@ public class EnemyBattle : MonoBehaviour
             yield return null;
         }
 
-
+        if (isBoss)
+        {
+            transform.localScale = originalScale;
+        }
         transform.position = originalPosition;
     }
 

@@ -170,3 +170,6 @@ MonoBehaviour:
   attack: 18
   defense: 10
   exp: 100
+  moveDistance: 0.5
+  speed: 5
+  isBoss: 1

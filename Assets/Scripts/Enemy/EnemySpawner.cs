@@ -5,7 +5,6 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private GameObject skeletonPrefab;
     [SerializeField] private GameObject flyEyePrefab;
     [SerializeField] private GameObject finalBossPrefab;
-    [SerializeField] private GameObject enemiesParent;
     [SerializeField] private Transform spawnPoint;
 
     public static GameObject currentEnemy;

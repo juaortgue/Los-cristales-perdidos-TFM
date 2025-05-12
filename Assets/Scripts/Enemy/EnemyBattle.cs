@@ -10,7 +10,10 @@ public class EnemyBattle : MonoBehaviour
     public float moveDistance = 0.5f;
     public float speed = 5f;
     public bool isBoss = false;
-
+    public float enemyCriticalRatePreparing = 0.3f;
+    public float enemyCriticalRateAttack = 0.5f;
+    public float enemyCriticalPercentageDamage = 0.8f;
+    
     private Transform target;
     private SpriteRenderer spriteRenderer;
 
@@ -35,7 +38,7 @@ public class EnemyBattle : MonoBehaviour
         Vector3 direction = (target.position - transform.position).normalized;
 
         Vector3 attackPosition = originalPosition + direction * moveDistance;
-        
+
         if (isBoss)
         {
             transform.localScale = enlargedScale;

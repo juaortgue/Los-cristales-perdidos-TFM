@@ -10,11 +10,16 @@ public class BattleManagerScript : MonoBehaviour
     public GameObject player;
     public BattleStateEnum state;
     public GameObject battleUIGameObject;
+    public AudioSource audioSourceNormalBattle, audioSourceFinalBattle;
+
 
     private BattleUI battleUIScript;
     private PlayerBattle playerBattle;
     private EnemyBattle enemyBattle;
-    public AudioSource audioSourceNormalBattle, audioSourceFinalBattle;
+    private bool enemyPreparingCritical = false;
+
+
+
 
     void Start()
     {
@@ -71,39 +76,95 @@ public class BattleManagerScript : MonoBehaviour
         state = BattleStateEnum.ENEMYTURN;
         battleUIScript.ShowButtons(false);
     }
-
-    IEnumerator EnemyAttackPlayerAfterDelay(float delay)
+    public void EnemyChargeAttack()
     {
+        battleUIScript.UpdateTurnText(BattleStateEnum.CHARGINGATTACK);
+        enemyPreparingCritical = true;
+    }
 
-
-        yield return new WaitForSeconds(delay);
-
-        int damage = 1;
+    public void EnemyAttackPlayer()
+    {
+        int damage = 0;
         if (enemyBattle.attack > PlayerStats.Instance.getDefense())
         {
             damage = enemyBattle.attack - PlayerStats.Instance.getDefense();
         }
 
-        if(playerBattle.isDefending)
+        if (playerBattle.isDefending)
         {
-            damage = damage /2;
+            damage = damage / 2;
             playerBattle.Undefending();
         }
-        
+
         enemyBattle.PlayAttackAnimation();
         playerBattle.TakeDamage(damage);
         battleUIScript.UpdateLifeTexts();
         playerBattle.DoReceiveDamageAnimation();
+    }
 
+    public void Lost()
+    {
+        state = BattleStateEnum.LOST;
+        battleUIScript.UpdateTurnText(BattleStateEnum.LOST);
+        StartCoroutine(EndBattleAfterDelay("MainMenuScene"));
+    }
 
-        yield return new WaitForSeconds(1f);
+    public void EnemyAttackPlayerCritical()
+    {
+        int damage = (int)(PlayerStats.Instance.getMaxHP() * enemyBattle.enemyCriticalPercentageDamage);
+        if (playerBattle.isDefending)
+        {
+            damage /= 2;
+            playerBattle.Undefending();
+        }
+
+        enemyBattle.PlayAttackAnimation();
+        playerBattle.TakeDamage(damage);
+        battleUIScript.UpdateTurnText(BattleStateEnum.CRITICAL);
+        battleUIScript.UpdateLifeTexts();
+        playerBattle.DoReceiveDamageAnimation();
+
+        
+    }
+
+    IEnumerator EnemyAttackPlayerAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        if (enemyPreparingCritical)
+        {
+            if (Random.value < enemyBattle.enemyCriticalRateAttack)
+            {
+                Debug.Log("CRITICAL");
+                EnemyAttackPlayerCritical();
+                yield return new WaitForSeconds(1f);
+            }else{
+                battleUIScript.UpdateTurnText(BattleStateEnum.CRITICAL_FAILED);
+                playerBattle.Undefending();
+
+            }
+            enemyPreparingCritical = false;
+        }
+        else
+        {
+            if (Random.value < enemyBattle.enemyCriticalRatePreparing)
+            {
+                Debug.Log("PREPARING");
+                EnemyChargeAttack();
+                yield return new WaitForSeconds(3f);
+            }
+            else
+            {
+
+                EnemyAttackPlayer();
+                yield return new WaitForSeconds(1f);
+            }
+        }
 
 
         if (PlayerStats.Instance.getCurrentHP() <= 0)
         {
-            state = BattleStateEnum.LOST;
-            battleUIScript.UpdateTurnText(BattleStateEnum.LOST);
-            StartCoroutine(EndBattleAfterDelay("MainMenu"));
+            Lost();
         }
         else
         {
@@ -119,6 +180,7 @@ public class BattleManagerScript : MonoBehaviour
         {
             damage = PlayerStats.Instance.getAttack() - enemyBattle.defense;
         }
+
         playerBattle.DoAttackAnimation();
 
         enemyBattle.DoReceiveDamageAnimation();
@@ -162,7 +224,7 @@ public class BattleManagerScript : MonoBehaviour
 
     private void Defend()
     {
-        state = BattleStateEnum.DEFENDING;
+
         battleUIScript.UpdateTurnText(state);
         playerBattle.Defend();
         ChangeToEnemyTurn();

@@ -119,10 +119,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19e777dae7cdecc48b47d86c3aaf3837, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 30
-  currentHP: 30
+  maxHP: 32
+  currentHP: 32
   attack: 8
   defense: 2
   exp: 100
   moveDistance: 0.8
   speed: 5
+  isBoss: 0
+  enemyCriticalRatePreparing: 0.4
+  enemyCriticalRateAttack: 0.5
+  enemyCriticalPercentageDamage: 0.5

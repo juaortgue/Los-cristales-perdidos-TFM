@@ -75,6 +75,16 @@ public class BattleUI : MonoBehaviour
         }else if (state.Equals(BattleStateEnum.LEVELUP))
         {
             text = "Level Up!";
+        }else if(state.Equals(BattleStateEnum.CHARGINGATTACK))
+        {
+            text = "Charging Attack...";
+        }else if(state.Equals(BattleStateEnum.CRITICAL))
+        {
+            text = "Critical Hit!";
+        }
+        else if(state.Equals(BattleStateEnum.CRITICAL_FAILED))
+        {
+            text = "Critical Failed...";
         }
 
         turnText.text = text;

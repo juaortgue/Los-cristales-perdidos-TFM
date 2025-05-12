@@ -250,6 +250,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HeroeBattleScene
       objectReference: {fileID: 0}
+    - target: {fileID: 7659947158579214042, guid: 7cc0a075d890109448ecd0c1b8341fac, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

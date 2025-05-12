@@ -124,3 +124,5 @@ MonoBehaviour:
   attack: 8
   defense: 2
   exp: 100
+  moveDistance: 0.8
+  speed: 5

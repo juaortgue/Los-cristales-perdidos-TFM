@@ -41,7 +41,7 @@ public class BattleManagerScript : MonoBehaviour
         {
 
             state = BattleStateEnum.WAITING;
-            StartCoroutine(EnemyAttackPlayerAfterDelay(1.5f));
+            StartCoroutine(EnemyAttackPlayerAfterDelay(1f));
         }
     }
 
@@ -62,6 +62,7 @@ public class BattleManagerScript : MonoBehaviour
 
     IEnumerator EnemyAttackPlayerAfterDelay(float delay)
     {
+        
 
         yield return new WaitForSeconds(delay);
 
@@ -70,6 +71,11 @@ public class BattleManagerScript : MonoBehaviour
         {
             damage = enemyBattle.attack - PlayerStats.Instance.getDefense();
         }
+        enemyBattle.PlayAttackAnimation();
+        
+        yield return new WaitForSeconds(0.3f);
+        playerBattle.DoReceiveDamageAnimation();
+        yield return new WaitForSeconds(0.3f);
         playerBattle.TakeDamage(damage);
         battleUIScript.UpdateLifeTexts();
         if (PlayerStats.Instance.getCurrentHP() <= 0)

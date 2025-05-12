@@ -14,9 +14,21 @@ public class BattleManagerScript : MonoBehaviour
     private BattleUI battleUIScript;
     private PlayerBattle playerBattle;
     private EnemyBattle enemyBattle;
+    public AudioSource audioSourceNormalBattle, audioSourceFinalBattle;
 
     void Start()
     {
+        if (GameContext.isFinalBattle)
+        {
+            audioSourceNormalBattle.Stop();
+            audioSourceFinalBattle.Play();
+        }
+        else
+        {
+            audioSourceFinalBattle.Stop();
+            audioSourceNormalBattle.Play();
+        }
+        
         StartCoroutine(WaitForEnemyToBeReady());
     }
 

@@ -72,12 +72,14 @@ public class BattleManagerScript : MonoBehaviour
             damage = enemyBattle.attack - PlayerStats.Instance.getDefense();
         }
         enemyBattle.PlayAttackAnimation();
-        
-        yield return new WaitForSeconds(0.3f);
-        playerBattle.DoReceiveDamageAnimation();
-        yield return new WaitForSeconds(0.3f);
         playerBattle.TakeDamage(damage);
         battleUIScript.UpdateLifeTexts();
+        playerBattle.DoReceiveDamageAnimation();
+        
+
+        yield return new WaitForSeconds(1f);
+        
+        
         if (PlayerStats.Instance.getCurrentHP() <= 0)
         {
             state = BattleStateEnum.LOST;
@@ -99,6 +101,8 @@ public class BattleManagerScript : MonoBehaviour
             damage = PlayerStats.Instance.getAttack() - enemyBattle.defense;
         }
         playerBattle.DoAttackAnimation();
+        
+        enemyBattle.DoReceiveDamageAnimation();
         enemyBattle.TakeDamage(damage);
         battleUIScript.UpdateLifeTexts();
 

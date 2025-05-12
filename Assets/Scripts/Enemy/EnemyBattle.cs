@@ -11,11 +11,13 @@ public class EnemyBattle : MonoBehaviour
     public float speed = 5f;
 
     private Transform target;
+    private SpriteRenderer spriteRenderer;
 
 
     void Start()
     {
         currentHP = maxHP;
+        spriteRenderer = GetComponent<SpriteRenderer>();
         target = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
@@ -41,7 +43,6 @@ public class EnemyBattle : MonoBehaviour
             yield return null;
         }
 
-        // Mover de regreso
         time = 0f;
         while (time < 1f)
         {
@@ -67,6 +68,22 @@ public class EnemyBattle : MonoBehaviour
         {
             currentHP = calculateHP;
         }
+    }
+
+    public void DoReceiveDamageAnimation()
+    {
+        if (spriteRenderer != null)
+        {
+            StartCoroutine(ReciveDamageFlash());
+        }
+    }
+
+    private IEnumerator ReciveDamageFlash()
+    {
+        Color originalColor = spriteRenderer.color;
+        spriteRenderer.color = Color.red;
+        yield return new WaitForSeconds(0.6f);
+        spriteRenderer.color = originalColor;
     }
 
 }

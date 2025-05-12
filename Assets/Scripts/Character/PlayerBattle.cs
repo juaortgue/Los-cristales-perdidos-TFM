@@ -42,7 +42,7 @@ public class PlayerBattle : MonoBehaviour
     {
         Color originalColor = spriteRenderer.color;
         spriteRenderer.color = Color.red;
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.6f);
         spriteRenderer.color = originalColor;
     }
 

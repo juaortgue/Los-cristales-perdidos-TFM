@@ -34548,7 +34548,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 735730241}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 888aa171f6b2e1c419ca7f4eb35e8f1a, type: 3}
   m_Name: 
@@ -34564,7 +34564,6 @@ MonoBehaviour:
   - GOOD LUCK IN YOUR ADVENTURE!!
   timeBetweenDialogues: 5
   player: {fileID: 4960570773360368910}
-  isTutorial: 1
 --- !u!61 &735730244
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -36100,13 +36099,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbbd425c4358e8b4ea4b434d406fb09f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: 5
+  level: 1
   currentXP: 0
   xpToNextLevel: 10
   maxLvl: 5
-  lifeLevels: c8000000320000003c0000004600000050000000
-  attackLevels: c80000000a0000000c0000000e00000010000000
-  defenseLevels: c800000006000000080000000a0000000c000000
+  lifeLevels: 28000000320000003c0000004600000050000000
+  attackLevels: 080000000a0000000c0000000e00000010000000
+  defenseLevels: 0400000006000000080000000a0000000c000000
 --- !u!1001 &985298385
 PrefabInstance:
   m_ObjectHideFlags: 0

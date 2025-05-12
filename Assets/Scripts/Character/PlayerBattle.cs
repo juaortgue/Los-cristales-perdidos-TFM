@@ -17,4 +17,10 @@ public class PlayerBattle : MonoBehaviour
         
     }
 
+    public void DoAttackAnimation()
+    {
+        GetComponent<Animator>().SetTrigger("Attack");
+        Debug.Log("Attack animation");
+    }
+
 }

@@ -92,7 +92,7 @@ public class BattleManagerScript : MonoBehaviour
         {
             damage = PlayerStats.Instance.getAttack() - enemyBattle.defense;
         }
-
+        playerBattle.DoAttackAnimation();
         enemyBattle.TakeDamage(damage);
         battleUIScript.UpdateLifeTexts();
 

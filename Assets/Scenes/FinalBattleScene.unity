@@ -200,6 +200,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 51f3a03e2f16ae64dbe77946c610340c, type: 3}
+--- !u!1 &38490606 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7194458452243929960, guid: 51f3a03e2f16ae64dbe77946c610340c, type: 3}
+  m_PrefabInstance: {fileID: 38490605}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &115790490 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5944931671229018291, guid: 51f3a03e2f16ae64dbe77946c610340c, type: 3}
@@ -800,11 +805,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 421363023}
   m_CullTransparentMesh: 1
---- !u!1 &501198130 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7194458452243929960, guid: 51f3a03e2f16ae64dbe77946c610340c, type: 3}
-  m_PrefabInstance: {fileID: 38490605}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &534346735
 GameObject:
   m_ObjectHideFlags: 0
@@ -817,7 +817,7 @@ GameObject:
   - component: {fileID: 534346736}
   - component: {fileID: 534346738}
   m_Layer: 0
-  m_Name: StartFinalSceneManager
+  m_Name: FinalSceneManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -855,7 +855,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.1194067, y: 3.3651032}
+  m_Offset: {x: 0.1194067, y: 3.7148573}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -866,7 +866,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 15.871592, y: 5.298648}
+  m_Size: {x: 15.871592, y: 4.5991397}
   m_EdgeRadius: 0
 --- !u!4 &534346737
 Transform:
@@ -901,8 +901,13 @@ MonoBehaviour:
   - The Dark Crystal is awakened. Its energy pulses with ancient wrath.
   - Your efforts are noble, but futile.
   - Now, witness true magic... and PERISH!
-  player: {fileID: 501198130}
-  timeBetweenDialogues: 2.5
+  postBattleDialogues:
+  - Impossible... How could I lose to you?
+  - But you... you fought for others. For hope.
+  - Maybe there's still time... to make things right.
+  - Take the crystal. Use it wisely...
+  player: {fileID: 38490606}
+  timeBetweenDialogues: 6
 --- !u!1 &726166074
 GameObject:
   m_ObjectHideFlags: 0

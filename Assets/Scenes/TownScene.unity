@@ -36106,6 +36106,8 @@ MonoBehaviour:
   lifeLevels: 28000000320000003c0000004600000050000000
   attackLevels: 07000000090000000b0000000d0000000f000000
   defenseLevels: 0400000005000000060000000700000008000000
+  updgradeToMaxLevel: 0
+  upgradeToMaxStats: 0
 --- !u!1001 &985298385
 PrefabInstance:
   m_ObjectHideFlags: 0

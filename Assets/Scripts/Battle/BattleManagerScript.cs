@@ -106,7 +106,10 @@ public class BattleManagerScript : MonoBehaviour
     {
         state = BattleStateEnum.LOST;
         battleUIScript.UpdateTurnText(BattleStateEnum.LOST);
-        StartCoroutine(EndBattleAfterDelay("MainMenuScene"));
+        //StartCoroutine(EndBattleAfterDelay("MainMenuScene"));
+        battleUIScript.ShowButtons(false);
+        PlayerStats.Instance.RecoverHP();
+        StartCoroutine(EndBattleAfterDelay("TownScene"));
     }
 
     public void EnemyAttackPlayerCritical()
@@ -114,7 +117,7 @@ public class BattleManagerScript : MonoBehaviour
         int damage = (int)(PlayerStats.Instance.getMaxHP() * enemyBattle.enemyCriticalPercentageDamage);
         if (playerBattle.isDefending)
         {
-            damage /= 2;
+            damage /= 3;
             playerBattle.Undefending();
         }
 
@@ -139,8 +142,10 @@ public class BattleManagerScript : MonoBehaviour
                 EnemyAttackPlayerCritical();
                 yield return new WaitForSeconds(1f);
             }else{
+                Debug.Log("CRITICAL FAILED");
                 battleUIScript.UpdateTurnText(BattleStateEnum.CRITICAL_FAILED);
                 playerBattle.Undefending();
+                yield return new WaitForSeconds(1.5f);
 
             }
             enemyPreparingCritical = false;
@@ -193,8 +198,7 @@ public class BattleManagerScript : MonoBehaviour
             state = BattleStateEnum.WON;
             int beforeLevel = PlayerStats.Instance.getLevel();
             PlayerStats.Instance.GainExpFromEnemy(enemyBattle.exp);
-            PlayerStats.Instance.setCurrentHP(PlayerStats.Instance.getMaxHP());
-            PlayerStats.Instance.setCurrentHP(PlayerStats.Instance.getMaxHP());
+            PlayerStats.Instance.RecoverHP();
             int afterLevel = PlayerStats.Instance.getLevel();
 
             if (afterLevel > beforeLevel)
@@ -208,7 +212,8 @@ public class BattleManagerScript : MonoBehaviour
 
             if (GameContext.isFinalBattle)
             {
-                StartCoroutine(EndBattleAfterDelay("MainMenuScene"));
+                battleUIScript.UpdateTurnText(BattleStateEnum.WON);
+                StartCoroutine(EndBattleAfterDelay("FinalBattleScene"));
             }
             else
             {

@@ -14,6 +14,9 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private int[] attackLevels = new int[5] { 8, 10, 12, 14, 16 };
     [SerializeField] private int[] defenseLevels = new int[5] { 4, 6, 8, 10, 12 };
 
+    //only for testing purposes
+    [SerializeField] private bool updgradeToMaxLevel = false;
+    [SerializeField] private bool upgradeToMaxStats = false;
 
     //character stats
     private int maxHP = 40;
@@ -22,6 +25,7 @@ public class PlayerStats : MonoBehaviour
     private int defense = 4;
 
     private Vector3 playerPosition;
+
 
 
     void Awake()
@@ -42,13 +46,51 @@ public class PlayerStats : MonoBehaviour
         maxHP = lifeLevels[0];
         attack = attackLevels[0];
         defense = defenseLevels[0];
+
         if (currentHP == 0)
         {
             currentHP = maxHP;
         }
         playerPosition = Vector3.zero;
+
+        if (updgradeToMaxLevel)
+        {
+            level = maxLvl;
+            currentXP = 0;
+            xpToNextLevel = 0;
+
+            maxHP = lifeLevels[maxLvl - 1];
+            attack = attackLevels[maxLvl - 1];
+            defense = defenseLevels[maxLvl - 1];
+            currentHP = maxHP;
+        }
+        else if (upgradeToMaxStats)
+        {
+            maxHP = 999;
+            attack = 999;
+            defense = 999;
+            currentHP = maxHP;
+            level = maxLvl;
+        }
+    }
+    public void ResetStats()
+    {
+        level = 1;
+        currentXP = 0;
+        xpToNextLevel = 10;
+
+        maxHP = lifeLevels[0];
+        attack = attackLevels[0];
+        defense = defenseLevels[0];
+        currentHP = maxHP;
+
+        playerPosition = Vector3.zero;
     }
 
+    public void RecoverHP()
+    {
+        currentHP = maxHP;
+    }
     public void GainExpFromEnemy(int exp)
     {
         if (level < maxLvl)

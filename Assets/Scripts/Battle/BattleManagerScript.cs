@@ -80,6 +80,7 @@ public class BattleManagerScript : MonoBehaviour
     {
         battleUIScript.UpdateTurnText(BattleStateEnum.CHARGINGATTACK);
         enemyPreparingCritical = true;
+        playerBattle.Undefending();
     }
 
     public void EnemyAttackPlayer()
@@ -254,6 +255,7 @@ public class BattleManagerScript : MonoBehaviour
         {
             battleUIScript.ShowButtons(false);
             state = BattleStateEnum.WAITING;
+            PlayerStats.Instance.RecoverHP();
             StartCoroutine(EndBattleAfterDelay("TownScene"));
 
         }

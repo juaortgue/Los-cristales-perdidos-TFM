@@ -127,6 +127,6 @@ MonoBehaviour:
   moveDistance: 0.5
   speed: 5
   isBoss: 0
-  enemyCriticalRatePreparing: 0.4
-  enemyCriticalRateAttack: 0.4
-  enemyCriticalPercentageDamage: 0.3
+  enemyCriticalRatePreparing: 0.45
+  enemyCriticalRateAttack: 0.8
+  enemyCriticalPercentageDamage: 0.4

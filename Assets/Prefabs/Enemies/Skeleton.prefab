@@ -123,7 +123,7 @@ MonoBehaviour:
   currentHP: 32
   attack: 8
   defense: 2
-  exp: 5
+  exp: 100
   moveDistance: 0.8
   speed: 5
   isBoss: 0

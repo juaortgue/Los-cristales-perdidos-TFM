@@ -3,13 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    void Start()
-    {
-        if (PlayerStats.Instance != null)
-        {
-            PlayerStats.Instance.ResetStats();
-        }
-    }
+   
 
     public void LoadFirstScene()
     {
@@ -27,10 +21,13 @@ public class MainMenu : MonoBehaviour
         GameContext.previousScene = SceneEnum.MainMenuScene;
         SceneManager.LoadScene(SceneEnum.ControlsScene.ToString());
     }
+
     public void LoadMainMenuScene()
     {
         GameContext.previousScene = SceneEnum.ControlsScene;
         SceneManager.LoadScene(SceneEnum.MainMenuScene.ToString());
     }
+    
+    
 
 }

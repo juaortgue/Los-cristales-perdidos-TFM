@@ -93,10 +93,11 @@ public class PlayerStats : MonoBehaviour
     }
     public void GainExpFromEnemy(int exp)
     {
+        Debug.Log("GainExpFromEnemy");
         if (level < maxLvl)
         {
             currentXP += exp;
-
+            Debug.Log("Current XP: " + currentXP);
 
             if (currentXP >= xpToNextLevel)
             {
@@ -114,6 +115,7 @@ public class PlayerStats : MonoBehaviour
     private void LevelUp()
     {
         level++;
+        Debug.Log("Level Up! New Level: " + level);
         currentXP = 0;
         xpToNextLevel = xpToNextLevel * 2;
         if (level >= maxLvl)

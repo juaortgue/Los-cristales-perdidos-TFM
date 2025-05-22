@@ -20,12 +20,10 @@ public class PlayerMovement : MonoBehaviour
         if (GameContext.previousScene.Equals(SceneEnum.BattleScene) &&
         PlayerStats.Instance.getPlayerPosition() != Vector3.zero)
         {
-            Debug.Log("Returning from battle — setting saved position.");
             transform.position = PlayerStats.Instance.getPlayerPosition();
         }
         else
         {
-            Debug.Log("Using spawn point.");
             transform.position = spawnPoint.transform.position;
         }
        

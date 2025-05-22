@@ -42,14 +42,13 @@ public class FinalSceneManager : MonoBehaviour
             if (finalSceneManager != null)
             {
                 finalSceneManager.SetActive(false);
-                Debug.Log("StartFinalSceneManager desactivado");
             }
             player.GetComponent<PlayerMovement>().enabled = false;
             player.GetComponent<Animator>().SetBool("isRunning", false);
             StartCoroutine(StartPostGameDialogueSequence());
         }
 
-        
+
     }
 
     IEnumerator StartPostGameDialogueSequence()
@@ -59,14 +58,18 @@ public class FinalSceneManager : MonoBehaviour
             dm.ShowDialogue(line);
             yield return new WaitForSeconds(timeBetweenDialogues);
         }
-
+        if (PlayerStats.Instance != null)
+        {
+            PlayerStats.Instance.ResetStats();
+            Destroy(PlayerStats.Instance.gameObject);
+        }
         dm.HideDialogue();
         GameContext.isFinalBattle = false;
         yield return new WaitForSeconds(2f);
         SceneManager.LoadScene("MainMenuScene");
     }
 
-     void OnTriggerEnter2D(Collider2D collision)
+    void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player") && !triggered && !isPostGame)
         {

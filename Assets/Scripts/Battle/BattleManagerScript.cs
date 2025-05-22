@@ -107,7 +107,6 @@ public class BattleManagerScript : MonoBehaviour
     {
         state = BattleStateEnum.LOST;
         battleUIScript.UpdateTurnText(BattleStateEnum.LOST);
-        //StartCoroutine(EndBattleAfterDelay("MainMenuScene"));
         battleUIScript.ShowButtons(false);
         PlayerStats.Instance.RecoverHP();
         StartCoroutine(EndBattleAfterDelay("TownScene"));
@@ -139,11 +138,9 @@ public class BattleManagerScript : MonoBehaviour
         {
             if (Random.value < enemyBattle.enemyCriticalRateAttack)
             {
-                Debug.Log("CRITICAL");
                 EnemyAttackPlayerCritical();
                 yield return new WaitForSeconds(1f);
             }else{
-                Debug.Log("CRITICAL FAILED");
                 battleUIScript.UpdateTurnText(BattleStateEnum.CRITICAL_FAILED);
                 playerBattle.Undefending();
                 yield return new WaitForSeconds(1.5f);
@@ -155,7 +152,6 @@ public class BattleManagerScript : MonoBehaviour
         {
             if (Random.value < enemyBattle.enemyCriticalRatePreparing)
             {
-                Debug.Log("PREPARING");
                 EnemyChargeAttack();
                 yield return new WaitForSeconds(3f);
             }

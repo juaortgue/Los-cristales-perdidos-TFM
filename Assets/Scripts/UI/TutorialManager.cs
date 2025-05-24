@@ -30,7 +30,7 @@ public class TutorialManager : MonoBehaviour
     {
         triggered = true;
         GameContext.isTutorial = false;
-
+        GameContext.isDialogueOpen = true;
         foreach (string line in dialogues)
         {
             dm.ShowDialogue(line);
@@ -38,6 +38,7 @@ public class TutorialManager : MonoBehaviour
         }
 
         dm.HideDialogue();
+        GameContext.isDialogueOpen = false;
         player.GetComponent<PlayerMovement>().enabled = true;
     }
 

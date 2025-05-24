@@ -12,15 +12,16 @@ public class StatsMenu : MonoBehaviour
     public TextMeshProUGUI attackField;
     public TextMeshProUGUI defenseField;
     public TextMeshProUGUI hpField;
+    public AudioSource audioSourceEffectOpen;
 
     public void TogleStatsMenu(InputAction.CallbackContext context)
     {
-        if (statsPanel != null && context.performed)
+        if (statsPanel != null && context.performed && !GameContext.isDialogueOpen)
         {
             bool isActive = !statsPanel.activeSelf;
-            
+            audioSourceEffectOpen.Play();
             statsPanel.SetActive(isActive);
-            
+
             Time.timeScale = isActive ? 0 : 1;
         }
     }

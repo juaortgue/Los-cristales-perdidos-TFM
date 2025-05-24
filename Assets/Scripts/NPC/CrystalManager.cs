@@ -22,10 +22,12 @@ public class CrystalManager : MonoBehaviour
         {
             if (PlayerStats.Instance.getLevel() < 5)
             {
+                GameContext.isDialogueOpen = true;
                 dm.ShowDialogue(textToShow);
             }
             else
             {
+                GameContext.isDialogueOpen = false;
                 GameContext.previousScene = SceneEnum.TownScene;
                 dm.HideDialogue();
                 SceneManager.LoadScene("FinalBattleScene");
@@ -37,6 +39,7 @@ public class CrystalManager : MonoBehaviour
     {
         if (collision.CompareTag("Player") && dm != null)
         {
+            GameContext.isDialogueOpen = false;
             dm.HideDialogue();
         }
     }

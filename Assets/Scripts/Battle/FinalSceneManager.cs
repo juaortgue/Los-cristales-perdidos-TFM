@@ -53,6 +53,7 @@ public class FinalSceneManager : MonoBehaviour
 
     IEnumerator StartPostGameDialogueSequence()
     {
+        GameContext.isDialogueOpen = true;
         foreach (string line in postBattleDialogues)
         {
             dm.ShowDialogue(line);
@@ -66,13 +67,14 @@ public class FinalSceneManager : MonoBehaviour
         dm.HideDialogue();
         GameContext.isFinalBattle = false;
         yield return new WaitForSeconds(2f);
+        GameContext.isDialogueOpen = false;
         SceneManager.LoadScene("MainMenuScene");
     }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player") && !triggered && !isPostGame)
-        {
+        {   
             triggered = true;
             player.GetComponent<PlayerMovement>().enabled = false;
             player.GetComponent<Animator>().SetBool("isRunning", false);
@@ -84,6 +86,7 @@ public class FinalSceneManager : MonoBehaviour
 
     IEnumerator StartDialogueSequence()
     {
+        GameContext.isDialogueOpen = true;
         foreach (string line in dialogues)
         {
             dm.ShowDialogue(line);
@@ -92,6 +95,7 @@ public class FinalSceneManager : MonoBehaviour
 
         dm.HideDialogue();
         GameContext.isFinalBattle = true;
+        GameContext.isDialogueOpen = false;
         SceneManager.LoadScene("BattleScene");
     }
 
@@ -99,6 +103,7 @@ public class FinalSceneManager : MonoBehaviour
     {
         if (collision.CompareTag("Player") && dm != null)
         {
+            GameContext.isDialogueOpen = false;
             dm.HideDialogue();
         }
     }

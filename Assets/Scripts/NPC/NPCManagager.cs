@@ -21,6 +21,7 @@ public class NPCManagager : MonoBehaviour
     {
         if (collision.CompareTag("Player") && dm != null)
         {
+            GameContext.isDialogueOpen = true;
             dm.ShowDialogue(textToShow);
         }
 
@@ -30,6 +31,7 @@ public class NPCManagager : MonoBehaviour
     {
         if (collision.CompareTag("Player") && dm != null)
         {
+            GameContext.isDialogueOpen = false;
             dm.HideDialogue();
         }
     }

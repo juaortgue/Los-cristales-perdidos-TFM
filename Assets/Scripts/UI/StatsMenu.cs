@@ -28,7 +28,6 @@ public class StatsMenu : MonoBehaviour
 
     public void UpdateStats()
     {
-        Debug.Log("UpdateStats: "+PlayerStats.Instance.getLevel());
         levelField.text = PlayerStats.Instance.getLevel().ToString();
         expField.text = PlayerStats.Instance.getCurrentXP().ToString();
         nextLevelField.text = PlayerStats.Instance.getXPToNextLevel().ToString();

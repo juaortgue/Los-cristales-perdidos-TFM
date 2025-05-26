@@ -34549,7 +34549,7 @@ MonoBehaviour:
   - The maximum level is 5. You must reach level 5 to face the Great Sorcerer.
   - Gain experience by exploring the village and encountering random monsters during
     your journey.
-  - In battle, you can choose to Attack or Run Away.
+  - In battle, you can choose to Attack, Defend or Run Away.
   - GOOD LUCK IN YOUR ADVENTURE!!
   timeBetweenDialogues: 5
   player: {fileID: 4960570773360368910}

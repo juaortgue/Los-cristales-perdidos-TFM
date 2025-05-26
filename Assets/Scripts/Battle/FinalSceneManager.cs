@@ -78,7 +78,7 @@ public class FinalSceneManager : MonoBehaviour
             triggered = true;
             player.GetComponent<PlayerMovement>().enabled = false;
             player.GetComponent<Animator>().SetBool("isRunning", false);
-            PlayerStats.Instance.setPlayerPosition(transform.position);
+            PlayerStats.Instance.setPlayerPosition(player.transform.position);
             GameContext.previousScene = SceneEnum.FinalBattleScene;
             StartCoroutine(StartDialogueSequence());
         }
